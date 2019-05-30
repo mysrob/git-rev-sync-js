@@ -138,6 +138,11 @@ function tagFirstParent(markDirty) {
     return _command('git', ['describe', '--always', '--tag', '--abbrev=0', '--first-parent']);
 }
 
+function tags(pattern) {
+  var p = pattern ? pattern : '*';
+  return _command('git', ['tag', '-l', '--sort=-v:refname',  p]).split('\n');
+}
+
 function isDirty() {
   var writeTree = _command('git', ['write-tree']);
   return _command('git', ['diff-index', writeTree, '--']).length > 0;
@@ -184,5 +189,6 @@ module.exports = {
   remoteUrl: remoteUrl,
   short: short,
   tag: tag,
-  tagFirstParent: tagFirstParent
+  tagFirstParent: tagFirstParent,
+  tags: tags
 };
