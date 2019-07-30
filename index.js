@@ -140,7 +140,8 @@ function tagFirstParent(markDirty) {
 
 function tags(pattern) {
   var p = pattern ? pattern : '*';
-  return _command('git', ['tag', '-l', '--sort=-v:refname',  p]).split('\n');
+  var commit = _command('git', ['rev-parse', 'HEAD']);
+  return _command('git', ['tag', '-l', '--merged', commit, '--sort=-v:refname',  p]).split('\n');
 }
 
 function isDirty() {
